@@ -14,9 +14,23 @@ public class CashTest {
 		
 		String recipit = cash.printRecipit();
 		
-		String expected = "1 book : 12.49\n" +
+		String expected = "1 book: 12.49\n" +
 				"Sales Taxes: 0.00\n" + 
 				"Total: 12.49";
+		assertEquals(expected, recipit);
+	}
+	
+	@Test
+	public void sellOneMiscItemWithTaxNoImported() throws Exception {
+		
+		Cash cash = new Cash();
+		cash.sellItem("1 music CD at 14.99");
+		
+		String recipit = cash.printRecipit();
+		
+		String expected = "1 music CD: 16.49\n" +
+				"Sales Taxes: 1.50\n" + 
+				"Total: 16.49";
 		assertEquals(expected, recipit);
 	}
 	
