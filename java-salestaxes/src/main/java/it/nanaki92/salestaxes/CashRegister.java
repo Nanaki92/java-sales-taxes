@@ -5,11 +5,11 @@ import java.math.RoundingMode;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Cash {
+public class CashRegister {
 	
 	private Item item;
 	
-	public void sellItem(String order) {
+	public void checkoutItem(String order) {
 		
 		item = parseOrder(order);
 		
