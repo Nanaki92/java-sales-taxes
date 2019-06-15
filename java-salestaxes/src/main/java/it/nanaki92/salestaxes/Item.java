@@ -4,13 +4,14 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CartItem {
+public class Item {
+	
 	
 	private final String productName;
 	private final String quantity;
 	private final BigDecimal netPrice;
 	
-	public CartItem(String productName, String quantity, BigDecimal netPrice) {
+	public Item(String productName, String quantity, BigDecimal netPrice) {
 		this.productName = productName;
 		this.quantity = quantity;
 		this.netPrice = netPrice;
@@ -28,7 +29,7 @@ public class CartItem {
 		return netPrice;
 	}
 	
-	public static CartItem parseOrderToItem(String order) {
+	public static Item parseOrderToItem(String order) {
 		
 		String patternToGetQuantityNamePrice = "^(\\d)\\s([a-zA-Z\\s]*)\\sat\\s(\\d+\\.\\d{2})";
 		Pattern pattern = Pattern.compile(patternToGetQuantityNamePrice);
@@ -38,9 +39,10 @@ public class CartItem {
 		
 		String quantity = matcher.group(1);
 		String productName = matcher.group(2);
-		BigDecimal netPrice = new BigDecimal(matcher.group(3));
+		BigDecimal netPrice = new BigDecimal(matcher.group(3)); 
 		
-		return new CartItem(productName, quantity, netPrice);
+		return new Item(productName, quantity, netPrice);
 	}
+
 	
 }
