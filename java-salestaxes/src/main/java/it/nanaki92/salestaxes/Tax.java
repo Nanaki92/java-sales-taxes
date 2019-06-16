@@ -1,20 +1,17 @@
 package it.nanaki92.salestaxes;
 
 import java.math.BigDecimal;
-import static it.nanaki92.salestaxes.warehouse.Category.*;
 import java.math.RoundingMode;
 
-import it.nanaki92.salestaxes.warehouse.Catalog;
+import static it.nanaki92.salestaxes.warehouse.Category.*;
 
 public class Tax {
 	private final int standardTax;
 	private final int importedTax;
-	private final Catalog catalog;
 	
 	public Tax(int standardTax, int importedTax) {
 		this.standardTax = standardTax;
 		this.importedTax = importedTax;
-		this.catalog = new Catalog();
 	}
 	
 	public BigDecimal calculateTaxOnItem(Item item) {
@@ -30,10 +27,9 @@ public class Tax {
 	}
 	
 	private int taxRatePerItem(Item item) {
-		String productName = item.getProductName();
 		int tax = 0;		
 		
-		if (isTaxed(productName)) {
+		if (isTaxed(item)) {
 			tax += standardTax;
 		}
 		if (item.isImported()) {
@@ -44,8 +40,8 @@ public class Tax {
 	}
 	
 	
-	private boolean isTaxed(String productName) {
-		if (catalog.getCategory(productName) == OTHER) {
+	private boolean isTaxed(Item item) {
+		if (item.getCategory() == OTHER) {
 			return true;
 		}
 		return false;

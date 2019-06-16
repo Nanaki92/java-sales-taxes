@@ -4,19 +4,23 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import it.nanaki92.salestaxes.warehouse.Catalog;
+import it.nanaki92.salestaxes.warehouse.Category;
+
 public class Item {
-	
-	
+
 	private final String productName;
 	private final String quantity;
 	private final BigDecimal netPrice;
 	private final boolean imported;
+	private final Category category;
 	
-	public Item(String productName, String quantity, BigDecimal netPrice, boolean imported) {
+	public Item(String productName, String quantity, BigDecimal netPrice, boolean imported, Category category) {		
 		this.productName = productName;
 		this.quantity = quantity;
 		this.netPrice = netPrice;
 		this.imported = imported;
+		this.category = category;
 	}
 	
 	public String getProductName() {
@@ -33,6 +37,10 @@ public class Item {
 	
 	public boolean isImported() {
 		return imported;
+	}
+	
+	public Category getCategory() {
+		return category;
 	}
 	
 	public static Item parseOrderToItem(String order) {
@@ -52,7 +60,9 @@ public class Item {
 			productName = clearImportedProductName(productName);
 		}
 		
-		return new Item(productName, quantity, netPrice, imported);
+		Category category = getCategoryFromCatalog(productName);
+		
+		return new Item(productName, quantity, netPrice, imported, category);
 	}
 	
 	private static boolean itemImported(String productName) {
@@ -64,6 +74,11 @@ public class Item {
         productName = productName.replace("  ", " ");
         return productName.trim();
 	}
+	
+	private static Category getCategoryFromCatalog(String productName) {
+		return new Catalog().getCategory(productName);
+	}
+ 
 
 	
 }
