@@ -3,6 +3,8 @@ package it.nanaki92.salestaxes;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import it.nanaki92.salestaxes.warehouse.Item;
+
 public class CashRegister {
 	
 	private Item item;

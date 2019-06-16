@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
+import it.nanaki92.salestaxes.warehouse.Item;
+
 public class ItemTest {
 	
 	@Test

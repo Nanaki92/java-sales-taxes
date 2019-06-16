@@ -1,11 +1,8 @@
-package it.nanaki92.salestaxes;
+package it.nanaki92.salestaxes.warehouse;
 
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import it.nanaki92.salestaxes.warehouse.Catalog;
-import it.nanaki92.salestaxes.warehouse.Category;
 
 public class Item {
 
