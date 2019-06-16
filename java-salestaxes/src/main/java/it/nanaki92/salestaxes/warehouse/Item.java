@@ -75,7 +75,5 @@ public class Item {
 	private static Category getCategoryFromCatalog(String productName) {
 		return new Catalog().getCategory(productName);
 	}
- 
-
 	
 }

@@ -19,7 +19,7 @@ public class CashRegisterTest {
 	@Test
 	public void sellOneMiscItemNoTaxNoImported() throws Exception {
 		
-		cashRegister.checkoutItem("1 book at 12.49");
+		cashRegister.checkoutOrder("1 book at 12.49");
 		
 		String recipit = cashRegister.printRecipit();
 		
@@ -32,7 +32,7 @@ public class CashRegisterTest {
 	@Test
 	public void sellOneMiscItemWithTaxNoImported() throws Exception {
 		
-		cashRegister.checkoutItem("1 music CD at 14.99");
+		cashRegister.checkoutOrder("1 music CD at 14.99");
 		
 		String recipit = cashRegister.printRecipit();
 		
@@ -44,7 +44,7 @@ public class CashRegisterTest {
 	
 	@Test
 	public void sellOneImportedItemTaxFree() throws Exception {
-		cashRegister.checkoutItem("1 imported box of chocolates at 10.00");
+		cashRegister.checkoutOrder("1 imported box of chocolates at 10.00");
 		
 		String recipit = cashRegister.printRecipit();
 		
@@ -56,7 +56,7 @@ public class CashRegisterTest {
 	
 	@Test
 	public void sellOneImportedItemWithAlsoStandardTax() throws Exception {
-		cashRegister.checkoutItem("1 imported bottle of perfume at 47.50");
+		cashRegister.checkoutOrder("1 imported bottle of perfume at 47.50");
 		
 		String recipit = cashRegister.printRecipit();
 		
@@ -66,5 +66,21 @@ public class CashRegisterTest {
 		assertEquals(expected, recipit);
 	}
 	
+	
+	@Test
+	public void sellMultipleItem() throws Exception {
+		cashRegister.checkoutOrder("1 book at 12.49\n" + 
+				"1 music CD at 14.99\n" + 
+				"1 chocolate bar at 0.85\n");
+		
+		String recipit = cashRegister.printRecipit();
+		
+		String expected = "1 book: 12.49\n" + 
+				"1 music CD: 16.49\n" + 
+				"1 chocolate bar: 0.85\n" + 
+				"Sales Taxes: 1.50\n" + 
+				"Total: 29.83";
+		assertEquals(expected, recipit);
+	}
 	
 }

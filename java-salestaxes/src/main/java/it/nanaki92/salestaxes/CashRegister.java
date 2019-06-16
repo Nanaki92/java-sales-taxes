@@ -1,45 +1,39 @@
 package it.nanaki92.salestaxes;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.Scanner;
 
 import it.nanaki92.salestaxes.billing.Tax;
+import it.nanaki92.salestaxes.recipit.Recipit;
 import it.nanaki92.salestaxes.warehouse.Item;
 
 public class CashRegister {
 	
-	private Item item;
+	private Recipit recipit;
 	private Tax tax;
 	
 	public CashRegister(int standardTax, int importedTax) {
-		tax = new Tax(standardTax, importedTax);
+		this.tax = new Tax(standardTax, importedTax);
+		this.recipit = new Recipit(tax);
 	}
 	
-	public void checkoutItem(String order) {
+	public void checkoutOrder(String order) {
+		Scanner scanner = new Scanner(order);  
+		while (scanner.hasNextLine()) {  
+		   String itemOrder = scanner.nextLine();
+		   checkoutItem(itemOrder);
+		}
+		scanner.close();
+	}
+	
+	private void checkoutItem(String order) {
 		
-		item = Item.parseOrderToItem(order);
+		Item item = Item.parseOrderToItem(order);
+		recipit.add(item);
 	}
 	
 	public String printRecipit() {
-			
-		BigDecimal taxOnItem = tax.calculateTaxOnItem(item);
-		
-		BigDecimal grossPrice = item.getNetPrice().add(taxOnItem);
-		grossPrice = grossPrice.setScale(2, RoundingMode.HALF_UP);
-		
-		
-		String recipit = item.getQuantity() + " " + importedPrint(item) + item.getProductName() + ": " + grossPrice + "\n"
-				+ "Sales Taxes: " + taxOnItem + "\n"
-				+ "Total: " + grossPrice;
-				
-		return recipit;
+		return recipit.printRecipit();
 	}
 	
-	private String importedPrint(Item item) {
-		if (item.isImported()) {
-			return "imported ";
-		}
-		return "";
-	}
 
 }
