@@ -12,6 +12,7 @@ public class Catalog {
 	public Catalog() {
 		catalog.put("book", BOOK);
 		catalog.put("music CD", OTHER);
+		catalog.put("box of chocolates", FOOD);
 	}
 	
 	public Category getCategory(String productName) {

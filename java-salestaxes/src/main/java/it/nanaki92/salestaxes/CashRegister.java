@@ -8,8 +8,8 @@ public class CashRegister {
 	private Item item;
 	private Tax tax;
 	
-	public CashRegister(int standardTax) {
-		tax = new Tax(standardTax);
+	public CashRegister(int standardTax, int importedTax) {
+		tax = new Tax(standardTax, importedTax);
 	}
 	
 	public void checkoutItem(String order) {
@@ -25,11 +25,18 @@ public class CashRegister {
 		grossPrice = grossPrice.setScale(2, RoundingMode.HALF_UP);
 		
 		
-		String recipit = item.getQuantity() + " " + item.getProductName() + ": " + grossPrice + "\n"
+		String recipit = item.getQuantity() + " " + importedPrint(item) + item.getProductName() + ": " + grossPrice + "\n"
 				+ "Sales Taxes: " + taxOnItem + "\n"
 				+ "Total: " + grossPrice;
 				
 		return recipit;
+	}
+	
+	private String importedPrint(Item item) {
+		if (item.isImported()) {
+			return "imported ";
+		}
+		return "";
 	}
 
 }

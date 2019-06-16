@@ -9,12 +9,13 @@ import org.junit.Test;
 public class ItemTest {
 	
 	@Test
-	public void parseOneItemWithPrice() {
+	public void parseOneItemWithPrice() throws Exception {
 		Item item = Item.parseOrderToItem("1 imported box of chocolates at 10.00");
 		
 		assertEquals("1", item.getQuantity());
-		assertEquals("imported box of chocolates", item.getProductName());
+		assertEquals("box of chocolates", item.getProductName());
 		assertEquals(new BigDecimal("10.00"), item.getNetPrice());
 		
 	}
+	
 }
