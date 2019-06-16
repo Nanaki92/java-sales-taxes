@@ -1,4 +1,4 @@
-package it.nanaki92.salestaxes;
+package it.nanaki92.salestaxes.billing;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
