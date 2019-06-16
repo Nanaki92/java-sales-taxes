@@ -19,10 +19,9 @@ public class Tax {
 		BigDecimal price = item.getNetPrice();
 		
 		BigDecimal taxOnItem = price.divide(new BigDecimal(100)).multiply(new BigDecimal(taxRate));
+		taxOnItem = roundToNearestFiveCent(taxOnItem);
+		
 		taxOnItem = taxOnItem.setScale(2, RoundingMode.HALF_UP);
-		
-		
-		
 		return taxOnItem;
 	}
 	
@@ -39,12 +38,15 @@ public class Tax {
 		return tax;
 	}
 	
-	
 	private boolean isTaxed(Item item) {
 		if (item.getCategory() == OTHER) {
 			return true;
 		}
 		return false;
+	}
+	
+	private BigDecimal roundToNearestFiveCent(BigDecimal num) {
+		return num.multiply(new BigDecimal(20.00)).setScale(0, RoundingMode.UP).divide(new BigDecimal(20.00));
 	}
 	
 }
